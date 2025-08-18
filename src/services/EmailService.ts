@@ -21,6 +21,35 @@ export class EmailService {
 
     // cron vai chamar
     async sendPendingEmail() {
-        return await this.repo.findPending();
+        const pendings = await this.repo.findPending();
+        const failed: string[] = [];
+        if (pendings.length === 0) {
+            return { message: "Nenhum email foi enviado" };
+        }
+        for (const emailDoc of pendings) {
+            try {
+                await this.transporter.sendMail({
+                    from: process.env.EMAIL_USER,
+                    to: emailDoc.email,
+                    subject: emailDoc.subject,
+                    text: emailDoc.content,
+                });
+                await this.repo.markAsSent(emailDoc._id.toString());
+            } catch (error) {
+                console.error(
+                    `Erro ao enviar o email ${emailDoc._id}: ${error}`
+                );
+                failed.push(emailDoc._id.toString());
+            }
+        }
+        return {
+            totalAttempts: pendings.length,
+            totalSent: pendings.length - failed.length,
+            totalFailed: failed.length,
+        };
+    }
+
+    async findAllEmails() {
+        return await this.repo.findAllEmails();
     }
 }

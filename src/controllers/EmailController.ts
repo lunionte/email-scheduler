@@ -17,4 +17,8 @@ export class EmailController {
         const info = await new EmailService().sendPendingEmail();
         res.json(info);
     }
+    static async findAllEmails(req: Request, res: Response) {
+        const info = await new EmailService().findAllEmails();
+        res.json(info);
+    }
 }
