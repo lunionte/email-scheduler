@@ -14,4 +14,16 @@ export class EmailRepository {
             .limit(limit)
             .exec();
     }
+
+    async markAsSent(id: string) {
+        return Email.findByIdAndUpdate(
+            id,
+            { sent: true },
+            { new: true }
+        ).exec();
+    }
+
+    async findAllEmails() {
+        return Email.find();
+    }
 }
