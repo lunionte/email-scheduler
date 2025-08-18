@@ -9,7 +9,7 @@ app.use(express.json());
 configDotenv();
 
 connectDatabase();
-app.use("/api", emailRoute);
+app.use("/api/emails", emailRoute);
 
 const PORT = process.env.PORT;
 
