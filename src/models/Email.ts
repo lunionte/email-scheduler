@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface IEmail extends Document {
+    _id: string;
     email: string;
     subject: string;
     content: string;
@@ -18,7 +19,7 @@ const EmailSchema: Schema<IEmail> = new mongoose.Schema({
     sendAt: {
         type: Date,
         default: () => {
-            const date = dayjs().add(40, "year").startOf("year").toDate();
+            const date = dayjs().add(10, "minute").toDate();
             return date;
         },
     },
