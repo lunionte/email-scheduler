@@ -1,3 +1,4 @@
+import { Joi } from "celebrate";
 import dayjs from "dayjs";
 import mongoose, { Document, Schema } from "mongoose";
 
@@ -30,3 +31,9 @@ const EmailSchema: Schema<IEmail> = new mongoose.Schema({
 });
 
 export const Email = mongoose.model<IEmail>("Email", EmailSchema);
+
+export const newEmailSchema = Joi.object().keys({
+    email: Joi.string().email().required().trim(),
+    subject: Joi.string().max(30).trim(),
+    content: Joi.string().max(500).required().trim(),
+});
