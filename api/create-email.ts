@@ -4,6 +4,7 @@ import { EmailService } from "../src/services/EmailService";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (req.method !== "POST") {
+        console.log("Console.log: Método não permitido");
         return res.status(405).json({ message: "Método não permitido" });
     }
 
