@@ -21,6 +21,7 @@ export class EmailService {
 
     // cron vai chamar
     async sendPendingEmail() {
+        // retorna uma array de documentos
         const pendings = await this.repo.findPending();
         const failed: string[] = [];
         if (pendings.length === 0) {
