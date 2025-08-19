@@ -1,17 +1,24 @@
 import mongoose from "mongoose";
 
-export const connectDatabase = async () => {
-    const uri = process.env.MONGO_URI;
+let cachedConnection: typeof mongoose | null = null;
 
+export const connectDatabase = async () => {
+    if (cachedConnection) {
+        // Reutiliza a conexão existente
+        return cachedConnection;
+    }
+
+    const uri = process.env.MONGO_URI;
     if (!uri) {
         throw new Error("URI não fornecida");
     }
 
     try {
-        await mongoose.connect(uri);
+        cachedConnection = await mongoose.connect(uri);
         console.log("✅ Conectado ao banco de dados");
+        return cachedConnection;
     } catch (error) {
-        console.error("❌ Erro ao conectar ao banco de dados");
-        process.exit(1); // encerra a aplicação node
+        console.error("❌ Erro ao conectar ao banco de dados", error);
+        throw error; // não encerre a função, só jogue o erro
     }
 };

@@ -5,7 +5,7 @@ export class EmailRepository {
         return new Email(data).save();
     }
 
-    async findPending(limit = 100) {
+    async findPending(limit = 10) {
         return Email.find({
             sent: false,
             sendAt: { $lte: new Date() }, // só acha os que são less than equal (menor ou igual) que a data de agora
@@ -16,11 +16,7 @@ export class EmailRepository {
     }
 
     async markAsSent(id: string) {
-        return Email.findByIdAndUpdate(
-            id,
-            { sent: true },
-            { new: true }
-        ).exec();
+        return Email.findByIdAndUpdate(id, { sent: true }, { new: true }).exec();
     }
 
     async findAllEmails() {
