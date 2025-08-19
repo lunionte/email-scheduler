@@ -1,11 +1,13 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { newEmailSchema } from "../src/models/Email";
 import { EmailService } from "../src/services/EmailService";
+import { connectDatabase } from "../src/config/mongo";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (req.method !== "POST") {
         return res.status(405).json({ message: "Método não permitido" });
     }
+    await connectDatabase();
 
     // adaptando validação do joi
     const { error } = newEmailSchema.validate(req.body, { abortEarly: false });
