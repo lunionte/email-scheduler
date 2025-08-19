@@ -4,6 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "build": "tsc",
         "dev": "tsnd --respawn --transpile-only src/index.ts",
         "prod": "node dist/index.js"
     },
