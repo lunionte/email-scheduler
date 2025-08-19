@@ -10,10 +10,12 @@ export const connectDatabase = async () => {
 
     const uri = process.env.MONGO_URI;
     if (!uri) {
+        console.log("Console.log: URI não fornecida");
         throw new Error("URI não fornecida");
     }
 
     try {
+        console.log("Tentando entrar no banco de dados");
         cachedConnection = await mongoose.connect(uri);
         console.log("✅ Conectado ao banco de dados");
         return cachedConnection;
