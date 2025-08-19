@@ -11,7 +11,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         await connectDatabase();
         const emailService = new EmailService();
 
-        const result = emailService.findAllEmails();
+        const result = await emailService.findAllEmails();
         return res.json(result);
     } catch (error) {
         console.error(error);
