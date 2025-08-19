@@ -36,9 +36,7 @@ export class EmailService {
                 });
                 await this.repo.markAsSent(emailDoc._id.toString());
             } catch (error) {
-                console.error(
-                    `Erro ao enviar o email ${emailDoc._id}: ${error}`
-                );
+                console.error(`Erro ao enviar o email ${emailDoc._id}: ${error}`);
                 failed.push(emailDoc._id.toString());
             }
         }

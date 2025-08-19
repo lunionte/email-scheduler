@@ -9,7 +9,7 @@ export const connectDatabase = async () => {
 
     try {
         await mongoose.connect(uri);
-        console.log(".✅ Conectado ao banco de dados");
+        console.log("✅ Conectado ao banco de dados");
     } catch (error) {
         console.error("❌ Erro ao conectar ao banco de dados");
         process.exit(1); // encerra a aplicação node
