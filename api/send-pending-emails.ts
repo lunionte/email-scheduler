@@ -9,10 +9,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const emailService = new EmailService();
 
     try {
+        console.log("Criando email no db...");
         const result = await emailService.sendPendingEmail();
+        console.log("✅ Email criado:", result);
         return res.json(result);
     } catch (error) {
-        console.error(error);
+        console.error("Erro ao salvar:", error);
         return res.status(500).json({ message: "Erro interno ao processar emails" });
     }
 }
