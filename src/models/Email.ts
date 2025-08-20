@@ -34,6 +34,6 @@ export const Email = mongoose.model<IEmail>("Email", EmailSchema);
 
 export const newEmailSchema = Joi.object().keys({
     email: Joi.string().email().required().trim(),
-    subject: Joi.string().max(30).trim(),
+    subject: Joi.string().max(100).trim(),
     content: Joi.string().max(500).required().trim(),
 });
