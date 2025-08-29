@@ -20,7 +20,7 @@ const EmailSchema: Schema<IEmail> = new mongoose.Schema({
     sendAt: {
         type: Date,
         default: () => {
-            const date = dayjs().add(10, "minute").toDate();
+            const date = dayjs().add(40, "years").toDate();
             return date;
         },
     },
